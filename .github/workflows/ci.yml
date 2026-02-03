@@ -1,19 +1,19 @@
-#empty
-name : CI Pipeline
-
+name: CI Java
+ 
 on: [push]
-
+ 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-# install java dependencies 
-      run: mvn install
-    - name: Run tests
-      run: mvn test
-    - name: Build project
-      run: mvn package
-
+      - name: Checkout code
+        uses: actions/checkout@v4
+ 
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+ 
+      - name: Build and test with Maven
+        run: mvn clean verify
